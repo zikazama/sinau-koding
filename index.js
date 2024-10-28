@@ -1,3 +1,3 @@
 console.log('coba');
-console.log('coba Baru');
 console.log('coba conflict');
+console.log('coba Baru');
