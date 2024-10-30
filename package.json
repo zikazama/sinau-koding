@@ -4,8 +4,21 @@
   "description": "Ini adalah kode coba",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+ "lint-staged": {
+  "*.{js,jsx,ts,tsx}": [
+    "eslint --fix",
+    "prettier --write",
+    "npm run test -- --findRelatedTests"
+  ]
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zikazama/sinau-koding.git"
@@ -19,5 +32,9 @@
   "homepage": "https://github.com/zikazama/sinau-koding#readme",
   "dependencies": {
     "moment": "^2.30.1"
+  },
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10"
   }
 }
