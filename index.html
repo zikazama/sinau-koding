@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +54,8 @@
             background-color: #45a049;
         }
 
-        .operator, .equals {
+        .operator,
+        .equals {
             background-color: #ff9800;
         }
 
@@ -66,7 +68,9 @@
         }
     </style>
 </head>
+
 <body>
+    <div class="calculator" id="alter-display" style="color:wheat">Ini Display</div>
     <div class="calculator">
         <input type="text" id="display" readonly>
         <div class="buttons">
@@ -92,11 +96,21 @@
 
     <script>
         const display = document.getElementById('display');
+        const alterDisplay = document.getElementById('alter-display');
         const buttons = document.querySelectorAll('button');
 
         let currentValue = '';
         let operator = '';
         let previousValue = '';
+
+        // Add this event listener for keyboard input
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            if (/^[0-9]$/.test(key)) {
+                console.log(`Number key pressed: ${key}`);
+                updateDisplay(key);
+            }
+        });
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
@@ -105,6 +119,7 @@
                 if (button.classList.contains('number')) {
                     currentValue += value;
                     display.value = currentValue;
+                    alterDisplay.innerHTML = currentValue;
                 } else if (button.classList.contains('operator')) {
                     if (currentValue !== '') {
                         if (previousValue !== '') {
@@ -160,6 +175,13 @@
             previousValue = '';
             display.value = '';
         }
+
+        function updateDisplay(value) {
+            currentValue += value;
+            display.value = currentValue;
+            alterDisplay.innerHTML = currentValue;
+        }
     </script>
 </body>
+
 </html>
