@@ -69,25 +69,77 @@ function todoListFactory() {
     let _todos = [];
     return {
         getList: function() {
-            return _todos;
+            return _todos.map((item, key) => {
+                return {
+                    index: key,
+                    ...item,
+                }
+            });
         },
-        addTodo: function(todo) {
-            _todos.push(todo);
+        addTodo: function(note, status) {
+            _todos.push({
+                note, status
+            });
         },
         getTodos: function(index) {
             return _todos[index];
         }
         ,
-        updateTodo: function(index, todo) {
-            _todos[index] = todo;
+        updateTodo: function(index, note) {
+            _todos[index] = {
+                ..._todos[index],
+                note: note
+            };
         },
         removeTodo: function(index) {
             _todos.splice(index, 1);
+        },
+        checkTodo: function(index) {
+            _todos[index] = {
+                ..._todos[index],
+                status: true
+            };
+        },
+        uncheckTodo: function(index) {
+            _todos[index] = {
+                ..._todos[index],
+                status: false
+            };
         }
     }
 }
 
+// Silahkan tambahkan fungsi untuk check dan uncheck
+
 const todo = todoListFactory();
-todo.addTodo('Ini catatan');
-todo.addTodo('Ini catatan 2');
-console.log(todo.getList());
+todo.addTodo('Makan', false);
+todo.addTodo('Mandi', false);
+todo.addTodo('Belajar', false);
+todo.checkTodo(0);
+// console.log({
+//     status: true,
+//     code: 200,
+//     data: {
+//         todo: todo.getList(),
+//     }
+// })
+
+const angka1 = [1,2,3,4,5];
+const angka2 = [4,5];
+// const angkaBaru = [angka[0], angka[1], angka[2], angka[3], angka[4]];
+const angkaBaru = [...angka1, ...angka2];
+console.log(new Set(angkaBaru));
+
+function check({name, status, ...object}) {
+    console.log(name);
+    console.log(status);
+    console.log(object.lain);
+    console.log(object.dunia);
+}
+
+check({
+    name: 'taylor',
+    status: true,
+    lain: 'gas',
+    dunia: 'lagi',
+})
